@@ -1,5 +1,8 @@
 import React, {Component} from 'react'
 import './searchbar.css'
+import {connect} from 'react-redux'
+import { bindActionCreators } from 'redux';
+import {FetchData} from '../actions/index'
 
 class SearchBar extends Component {
     constructor(props){
@@ -15,6 +18,7 @@ class SearchBar extends Component {
 
     onFormSubmit = (e) => {
         e.preventDefault()
+        this.props.FetchData(this.state.term)
         this.setState({term: ''})
     }
 
@@ -34,4 +38,8 @@ class SearchBar extends Component {
     }
 }
 
-export default SearchBar
+function mapDispatchToProps(dispatch){
+    return bindActionCreators({FetchData}, dispatch)
+}
+
+export default connect(null, mapDispatchToProps)(SearchBar)
